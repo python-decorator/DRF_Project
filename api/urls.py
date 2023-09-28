@@ -14,10 +14,10 @@ urlpatterns = [
     path('', include(router.urls))
 ]
 
-import base64
-encoded = base64.b64encode(b'admin:admin')
-print(encoded)
-b'YWRtaW46YWRtaW4='
+# import base64
+# encoded = base64.b64encode(b'admin:admin')
+# print(encoded)
+# b'YWRtaW46YWRtaW4='
 
 
 
