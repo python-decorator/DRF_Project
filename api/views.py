@@ -14,15 +14,37 @@ from rest_framework import viewsets
 from .serializers import TaskSerializer
 
 # myApp/views.py
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import TokenAuthentication #, SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+
+# myApp/views.py
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+
+class CustomAuthToken(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'email': user.email
+        })
+
+
 
 class TaskViewSet(viewsets.ModelViewSet): 
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-    authentication_classes = [BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
@@ -31,7 +53,6 @@ class TaskViewSet(viewsets.ModelViewSet):
             'auth': str(request.auth),  # None
         }
         return Response(content)
-
 
 class TaskViewXML(View): 
     def get(self, request):
