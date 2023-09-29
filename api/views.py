@@ -1,27 +1,27 @@
 
 # myApp/views.py
+import json
+
+from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 from django.views import View
-from django.core import serializers
-from .models import Task
-import json
+from django.views.decorators.csrf import csrf_exempt
 
-# myApp/views.py
 from rest_framework import viewsets
-from .serializers import TaskSerializer
 
-# myApp/views.py
-from rest_framework.authentication import TokenAuthentication #, SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import \
+    TokenAuthentication  # , SessionAuthentication, BasicAuthentication
+from rest_framework.authtoken.models import Token
+
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-# myApp/views.py
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
+from .models import Task
+from .serializers import TaskSerializer
+
 
 class CustomAuthToken(ObtainAuthToken):
 
