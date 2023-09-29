@@ -44,8 +44,8 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
 
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         content = {
