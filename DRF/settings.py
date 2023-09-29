@@ -111,6 +111,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+FIXTURE_DIRS = [ BASE_DIR / 'fixtures']
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
