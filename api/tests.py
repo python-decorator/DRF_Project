@@ -2,6 +2,8 @@
 # myApp/test.py
 from rest_framework.test import APITestCase
 from rest_framework import status
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 from .models import Task
 
 
@@ -53,3 +55,4 @@ class TaskAPITests(APITestCase):
     #     client.force_authenticate(user=user)
     #     client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
     #     print(user.is_authenticated)
+    #     self.client.login(username='admin', password='admin')

@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
 from rest_framework.authentication import \
-    TokenAuthentication  # , SessionAuthentication, BasicAuthentication
+    TokenAuthentication, SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.models import Token
 
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -42,10 +42,11 @@ class CustomAuthToken(ObtainAuthToken):
 class TaskViewSet(viewsets.ModelViewSet): 
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-
-    # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    # authentication_classes = [TokenAuthentication]
+  
+    authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
+    
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get(self, request, format=None):
         content = {
